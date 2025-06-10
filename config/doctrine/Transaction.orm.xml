@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\Transaction" table="transactions"
+            repository-class="App\Repository\TransactionRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="fromAccount" target-entity="App\Entity\Account">
+            <join-column name="from_account_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="toAccount" target-entity="App\Entity\Account">
+            <join-column name="to_account_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <field name="amount" type="integer" nullable="false"/>
+        <field name="currency" type="string" length="3" nullable="false"/>
+        <field name="description" type="string" nullable="false"/>
+        <field name="createdAt" type="datetime" nullable="false"/>
+    </entity>
+</doctrine-mapping>
